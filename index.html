@@ -912,7 +912,7 @@
             <span class="nav-icon">🏠</span>
             <span>خانه</span>
         </button>
-        <button class="nav-item" onclick="showToast('🎯 مسیر')">
+        <button class="nav-item" onclick="goPath()">
             <span class="nav-icon">🎯</span>
             <span>مسیر</span>
         </button>
@@ -1007,6 +1007,9 @@ function saveHabits(habits) {
         currentQuote: current.currentQuote || 0,
         date: getTodayKey()
     }));
+}
+        function goPath() {
+    window.location.href = 'path.html';
 }
 
         function renderTimeline() {
