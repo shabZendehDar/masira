@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FFF8F5" id="themeColor">
+    <title>مسیرا — مسیر من</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           تم روز
+           ============================================ */
+        :root {
+            --bg: #FFF8F5;
+            --bg-gradient-1: rgba(255, 107, 157, 0.15);
+            --bg-gradient-2: rgba(78, 205, 196, 0.12);
+            --bg-gradient-3: rgba(255, 217, 61, 0.1);
+            --card: #FFFFFF;
+            --card-shadow: rgba(255, 107, 157, 0.1);
+            --border: #FFE8EE;
+            --text: #3D2C3A;
+            --text-dim: #9B8A96;
+            --text-muted: #B8A5B0;
+            --pink: #FF6B9D;
+            --mint: #4ECDC4;
+            --yellow: #FFD93D;
+            --lilac: #C8A2FF;
+            --grad-main: linear-gradient(135deg, #FF6B9D 0%, #C8A2FF 100%);
+            --grad-mint: linear-gradient(135deg, #4ECDC4 0%, #FFD93D 100%);
+            --grad-progress: linear-gradient(180deg, #FF6B9D, #4ECDC4, #FFD93D, #C8A2FF);
+            --overlay: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ============================================
+           تم شب
+           ============================================ */
+        [data-theme="dark"] {
+            --bg: #1A1520;
+            --bg-gradient-1: rgba(255, 143, 179, 0.15);
+            --bg-gradient-2: rgba(95, 217, 208, 0.1);
+            --bg-gradient-3: rgba(255, 224, 102, 0.08);
+            --card: #252030;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --border: #352E42;
+            --text: #F5EEF8;
+            --text-dim: #B8A8C0;
+            --text-muted: #8A7A95;
+            --pink: #FF8FB3;
+            --mint: #5FD9D0;
+            --yellow: #FFE066;
+            --lilac: #D4B5FF;
+            --grad-main: linear-gradient(135deg, #FF8FB3 0%, #D4B5FF 100%);
+            --grad-mint: linear-gradient(135deg, #5FD9D0 0%, #FFE066 100%);
+            --grad-progress: linear-gradient(180deg, #FF8FB3, #5FD9D0, #FFE066, #D4B5FF);
+            --overlay: rgba(37, 32, 48, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            background: 
+                radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+                radial-gradient(circle at 85% 20%, var(--bg-gradient-2), transparent 40%),
+                radial-gradient(circle at 50% 90%, var(--bg-gradient-3), transparent 40%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 120px;
+        }
+
+        /* ============================================
+           انیمیشن‌ها
+           ============================================ */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 16px rgba(255, 217, 61, 0.4), 0 0 32px rgba(255, 217, 61, 0.2); }
+            50% { box-shadow: 0 0 24px rgba(255, 217, 61, 0.7), 0 0 48px rgba(255, 217, 61, 0.4); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.1); }
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .fade-in {
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.15s; }
+
+        /* ============================================
+           هدر
+           ============================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 10;
+            transition: background 0.4s ease;
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn:active {
+            transform: scale(0.9);
+            background: var(--border);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .icon-btn:active {
+            color: var(--pink);
+            transform: scale(0.85);
+        }
+
+        /* ============================================
+           پیشرفت کلی
+           ============================================ */
+        .overall-progress {
+            margin: 0 20px 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 16px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            color: var(--text-dim);
+            font-weight: 700;
+        }
+
+        .progress-percent {
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--grad-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink), var(--mint), var(--yellow), var(--lilac));
+            background-size: 200% auto;
+            animation: shine 3s infinite linear;
+            border-radius: 5px;
+            width: 43%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* ============================================
+           نقشه مسیر
+           ============================================ */
+        .map-wrapper {
+            padding: 0 20px 40px;
+            position: relative;
+        }
+
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* هر ردیف */
+        .map-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            padding: 6px 0;
+        }
+
+        /* دایره مرحله — کوچیک‌تر */
+        .node {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            user-select: none;
+        }
+
+        .node:active {
+            transform: scale(0.92);
+        }
+
+        /* تکمیل‌شده */
+        .node.done {
+            background: var(--grad-mint);
+            border: 3px solid transparent;
+            color: #FFFFFF;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.1),
+                0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        .node.done::after {
+            content: '✓';
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 26px;
+            height: 26px;
+            background: var(--grad-main);
+            color: #FFFFFF;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2.5px solid var(--bg);
+            box-shadow: 0 2px 10px rgba(255, 107, 157, 0.5);
+        }
+
+        /* فعلی */
+        .node.current {
+            background: var(--card);
+            border: 4px solid var(--yellow);
+            color: var(--text);
+            animation: glow 2s infinite, bounce 3s infinite;
+            box-shadow: 0 0 24px rgba(255, 217, 61, 0.6);
+        }
+
+        /* قفل */
+        .node.locked {
+            background: var(--card);
+            border: 3px solid var(--border);
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        /* صندوق گنج */
+        .node.reward {
+            background: var(--grad-mint);
+            border: 3px solid transparent;
+            color: #FFFFFF;
+            animation: float 3s infinite;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                0 8px 24px rgba(255, 217, 61, 0.5);
+        }
+
+        /* دستاورد */
+        .node.achievement {
+            background: var(--grad-main);
+            border: 3px solid var(--yellow);
+            color: #FFFFFF;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                0 8px 24px rgba(200, 162, 255, 0.5),
+                0 0 40px rgba(255, 217, 61, 0.4);
+            animation: glow 3s infinite;
+        }
+
+        /* خط اتصال */
+        .connector {
+            width: 5px;
+            height: 40px;
+            background: var(--border);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: background 0.4s ease;
+        }
+
+        .connector.done {
+            background: linear-gradient(180deg, var(--mint), var(--yellow));
+            box-shadow: 0 0 8px rgba(78, 205, 196, 0.4);
+        }
+
+        .connector.done::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: shine 2s infinite;
+            background-size: 100% 200%;
+        }
+
+        /* برچسب مرحله */
+        .node-label {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-dim);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .node-label.active {
+            color: var(--pink);
+            font-weight: 900;
+        }
+
+        .node-label.done {
+            color: var(--mint);
+        }
+
+        /* ============================================
+           دکمه اقدام
+           ============================================ */
+        .action-section {
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 17px;
+            border-radius: 18px;
+        }
+
+        .btn-3d {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 18px;
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #FFFFFF;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            background: var(--grad-main);
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.1),
+                0 6px 20px rgba(255, 107, 157, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .btn-3d::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+
+        .btn-3d:hover::after {
+            left: 100%;
+        }
+
+        .btn-3d:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 3px 10px rgba(255, 107, 157, 0.5);
+        }
+
+        /* ============================================
+           نوار پایین
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(255, 107, 157, 0.08);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            flex: 1;
+            position: relative;
+            padding: 4px 0;
+            transition: color 0.3s;
+            font-weight: 700;
+        }
+
+        .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active .nav-icon {
+            transform: scale(0.9);
+        }
+
+        .nav-item.active {
+            color: var(--pink);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            width: 24px;
+            height: 3px;
+            background: var(--grad-main);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 107, 157, 0.5);
+        }
+
+        .nav-plus {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #FFFFFF;
+            font-weight: 300;
+            margin-top: -22px;
+            border: 4px solid var(--bg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.15),
+                0 8px 24px rgba(255, 107, 157, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), border 0.4s ease;
+            flex: 0 0 auto;
+        }
+
+        .nav-plus::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 20%;
+            right: 20%;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .nav-plus:active {
+            transform: translateY(4px) scale(0.95);
+        }
+
+        /* ============================================
+           Toast
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card);
+            border: 1.5px solid var(--pink);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 
+                0 8px 24px rgba(255, 107, 157, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 200;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- هدر -->
+        <div class="header">
+            <button class="back-btn" onclick="goHome()">←</button>
+            <div class="header-title">مسیر من</div>
+            <div class="header-right">
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+            </div>
+        </div>
+
+        <!-- پیشرفت کلی -->
+        <div class="overall-progress fade-in">
+            <div class="progress-header">
+                <div class="progress-label">🎯 بهترین نسخه از خودم</div>
+                <div class="progress-percent">۴۳٪</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 43%;"></div>
+            </div>
+        </div>
+
+        <!-- نقشه -->
+        <div class="map-wrapper">
+            <div class="map-container" id="mapContainer"></div>
+        </div>
+
+        <!-- دکمه اقدام -->
+        <div class="action-section">
+            <button class="btn-3d action-btn" onclick="startCurrentNode()">
+                شروع مرحله فعلی
+                <span>⚡</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- نوار پایین -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="goHome()">
+            <span class="nav-icon">🏠</span>
+            <span>خانه</span>
+        </button>
+        <button class="nav-item active">
+            <span class="nav-icon">🎯</span>
+            <span>مسیر</span>
+        </button>
+        <button class="nav-plus" onclick="goAdd()">+</button>
+        <button class="nav-item" onclick="showToast('🌱 عادت روزانه')">
+            <span class="nav-icon">🌱</span>
+            <span>عادت روزانه</span>
+        </button>
+        <button class="nav-item" onclick="goProfile()">
+            <span class="nav-icon">👤</span>
+            <span>حساب</span>
+        </button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== مراحل مسیر =====
+        const nodes = [
+            { id: 1, type: 'done', emoji: '🌱', label: 'شروع مسیر' },
+            { id: 2, type: 'done', emoji: '📖', label: 'عادت اول' },
+            { id: 3, type: 'done', emoji: '💪', label: 'قدرت اراده' },
+            { id: 4, type: 'current', emoji: '🎯', label: 'تثبیت عادت' },
+            { id: 5, type: 'locked', emoji: '⚡', label: 'انرژی' },
+            { id: 6, type: 'reward', emoji: '🎁', label: 'صندوق گنج' },
+            { id: 7, type: 'locked', emoji: '🔥', label: 'استریک طلایی' },
+            { id: 8, type: 'locked', emoji: '💎', label: 'گوهر' },
+            { id: 9, type: 'locked', emoji: '👑', label: 'پادشاه' },
+            { id: 10, type: 'achievement', emoji: '🏆', label: 'دستاورد بزرگ' }
+        ];
+
+        // ===== تم =====
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('masira_theme', newTheme);
+            document.getElementById('themeBtn').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                newTheme === 'dark' ? '#1A1520' : '#FFF8F5');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('masira_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                saved === 'dark' ? '#1A1520' : '#FFF8F5');
+        }
+
+        // ===== رندر نقشه =====
+        function renderMap() {
+            const container = document.getElementById('mapContainer');
+            container.innerHTML = '';
+
+            nodes.forEach((node, index) => {
+                const row = document.createElement('div');
+                row.className = 'map-row';
+
+                let nodeClass = 'node';
+                let labelClass = 'node-label';
+
+                if (node.type === 'done') {
+                    nodeClass += ' done';
+                    labelClass += ' done';
+                } else if (node.type === 'current') {
+                    nodeClass += ' current';
+                    labelClass += ' active';
+                } else if (node.type === 'locked') {
+                    nodeClass += ' locked';
+                } else if (node.type === 'reward') {
+                    nodeClass += ' reward';
+                } else if (node.type === 'achievement') {
+                    nodeClass += ' achievement';
+                }
+
+                let content = node.emoji;
+                if (node.type === 'locked') content = '🔒';
+                else if (node.type === 'done') content = '✓';
+
+                const nodeEl = document.createElement('div');
+                nodeEl.className = nodeClass;
+                nodeEl.textContent = content;
+                nodeEl.onclick = () => handleNodeClick(node);
+
+                const labelEl = document.createElement('div');
+                labelEl.className = labelClass;
+                labelEl.textContent = node.label;
+
+                nodeEl.appendChild(labelEl);
+                row.appendChild(nodeEl);
+                container.appendChild(row);
+
+                if (index < nodes.length - 1) {
+                    const nextNode = nodes[index + 1];
+                    const connector = document.createElement('div');
+                    connector.className = 'connector';
+                    if (node.type === 'done' && nextNode.type !== 'locked') {
+                        connector.classList.add('done');
+                    }
+                    container.appendChild(connector);
+                }
+            });
+        }
+
+        // ===== کلیک روی مرحله =====
+        function handleNodeClick(node) {
+            if (node.type === 'locked') {
+                showToast(`🔒 ${node.label} — قفله`);
+            } else if (node.type === 'done') {
+                showToast(`✅ ${node.label}`);
+            } else if (node.type === 'current') {
+                showToast(`🎯 بریم برای ${node.label}!`);
+            } else if (node.type === 'reward') {
+                showToast(`🎁 صندوق گنج`);
+            } else if (node.type === 'achievement') {
+                showToast(`🏆 دستاورد بزرگ`);
+            }
+        }
+
+        // ===== شروع مرحله فعلی =====
+        function startCurrentNode() {
+            const current = nodes.find(n => n.type === 'current');
+            if (current) {
+                showToast(`⚡ شروع ${current.label}!`);
+            } else {
+                showToast('🎉 همه مراحل انجام شد!');
+            }
+        }
+
+        // ===== ناوبری =====
+        function goHome() { window.location.href = 'index.html'; }
+        function goAdd() { window.location.href = 'add-habit.html'; }
+        function goProfile() { window.location.href = 'profile.html'; }
+
+        // ===== Toast =====
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // ===== راه‌اندازی =====
+        window.addEventListener('load', () => {
+            loadTheme();
+            renderMap();
+        });
+    </script>
+</body>
+</html>
