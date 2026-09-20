@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسیرا</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+        }
+        
+        body {
+            background: #0F0B1F;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #7C5CFF, #6D28D9);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(124, 92, 255, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            right: 15%;
+            bottom: 30%;
+            background: #0F0B1F;
+            border-radius: 50%;
+            border: 2px solid #FBBF24;
+        }
+        
+        .logo::after {
+            content: '✦';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #FBBF24;
+            font-size: 24px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #7C5CFF, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #A0A0B8;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: #1A1333;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #241B4A;
+            text-align: right;
+        }
+        
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #FFFFFF;
+        }
+        
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #241B4A;
+        }
+        
+        .task:last-child {
+            border-bottom: none;
+        }
+        
+        .task span {
+            color: #A0A0B8;
+            font-size: 14px;
+        }
+        
+        .check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #FBBF24;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .check.done {
+            background: #FBBF24;
+            color: #0F0B1F;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #241B4A;
+            border-radius: 4px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7C5CFF, #A78BFA);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #6B6B80;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        <h1>مسیرا</h1>
+        <p class="subtitle">مسیرت رو بساز، به مقصد برس</p>
+        
+        <div class="card">
+            <h3>🌱 عادت‌های امروز</h3>
+            <div class="task">
+                <span>۱۵ دقیقه مطالعه</span>
+                <div class="check" onclick="this.classList.toggle('done'); updateProgress()">✓</div>
+            </div>
+            <div class="task">
+                <span>۳۰ دقیقه ورزش</span>
+                <div class="check" onclick="this.classList.toggle('done'); updateProgress()">✓</div>
+            </div>
+            <div class="task">
+                <span>۱۰ دقیقه مدیتیشن</span>
+                <div class="check" onclick="this.classList.toggle('done'); updateProgress()">✓</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <p class="footer">نسخه‌ی آزمایشی — مسیرا</p>
+    </div>
+    
+    <script>
+        function updateProgress() {
+            const checks = document.querySelectorAll('.check');
+            const done = document.querySelectorAll('.check.done').length;
+            const progress = (done / checks.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+    </script>
+</body>
+</html>
