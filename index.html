@@ -962,27 +962,52 @@
         }
 
         function loadState() {
-            try {
-                const saved = localStorage.getItem('masira_state');
-                if (saved) {
-                    const data = JSON.parse(saved);
-                    if (data.date === getTodayKey()) {
-                        state.habits = data.habits || defaultHabits;
-                        state.completed = data.completed || {};
-                        state.currentQuote = data.currentQuote || 0;
-                        return;
-                    }
-                }
-            } catch (e) {}
-            state.habits = defaultHabits;
-            state.completed = {};
-            state.currentQuote = 0;
+    try {
+        const saved = localStorage.getItem('masira_state');
+        if (saved) {
+            const data = JSON.parse(saved);
+            if (data.date === getTodayKey()) {
+                state.habits = data.habits || defaultHabits;
+                state.completed = data.completed || {};
+                state.currentQuote = data.currentQuote || 0;
+                return;
+            } else {
+                // تاریخ عوض شده — تیک‌ها رو ریست کن، ولی عادت‌ها بمونن
+                state.habits = data.habits || defaultHabits;
+                state.completed = {};
+                state.currentQuote = data.currentQuote || 0;
+                return;
+            }
         }
-
+    } catch (e) {}
+    state.habits = defaultHabits;
+    state.completed = {};
+    state.currentQuote = 0;
+}
         function getTodayKey() {
             const now = new Date();
             return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
         }
+        function getHabits() {
+    try {
+        const saved = localStorage.getItem('masira_state');
+        if (saved) {
+            const data = JSON.parse(saved);
+            return data.habits || defaultHabits;
+        }
+    } catch (e) {}
+    return defaultHabits;
+}
+
+function saveHabits(habits) {
+    const current = JSON.parse(localStorage.getItem('masira_state') || '{}');
+    localStorage.setItem('masira_state', JSON.stringify({
+        habits: habits,
+        completed: current.completed || {},
+        currentQuote: current.currentQuote || 0,
+        date: getTodayKey()
+    }));
+}
 
         function renderTimeline() {
             const timeline = document.getElementById('timeline');
@@ -1076,8 +1101,8 @@
         }
 
         function addNew() {
-            showToast('✨ افزودن عادت جدید (به‌زودی)');
-        }
+    window.location.href = 'add-habit.html';
+}
 
         function rotateQuote() {
             state.currentQuote = (state.currentQuote + 1) % quotes.length;
