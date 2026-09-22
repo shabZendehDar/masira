@@ -104,22 +104,24 @@
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            background: 
-                radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
-                radial-gradient(circle at 85% 90%, var(--bg-gradient-2), transparent 40%),
-                var(--bg);
-            background-attachment: fixed;
-        }
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background: 
+        radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+        radial-gradient(circle at 85% 90%, var(--bg-gradient-2), transparent 40%),
+        var(--bg);
+    background-attachment: fixed;
+}
 
-        .app {
-            width: 100%;
-            max-width: 480px;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 120px;
-        }
+.app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 120px;
+}
 
         /* ============================================
            انیمیشن‌ها
