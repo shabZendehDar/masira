@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F8F7FA" id="themeColor">
+    <title>مسیرا — آنالیز</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           تم روز
+           ============================================ */
+        :root {
+            --bg: #F8F7FA;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #FFFFFF;
+            --card-shadow: rgba(184, 164, 224, 0.08);
+            --border: #E8E5F0;
+            --text: #3A3A4A;
+            --text-dim: #8A8A9A;
+            --text-muted: #B5B5C0;
+
+            --brand: #B8A4E0;
+            --brand-dark: #8A7BB5;
+            --brand-soft: #EDE5FA;
+
+            --success: #9DD9C5;
+            --success-dark: #7BB89A;
+            --success-soft: #E0F2EA;
+
+            --celebrate: #F5D68A;
+            --pink: #F4B5C8;
+            --alert: #F4A6A0;
+            --alert-soft: #FBE5E3;
+
+            --axis-study: #B8A4E0;
+            --axis-sport: #9DD9C5;
+            --axis-family: #F4B5C8;
+            --axis-mind: #A8D8E8;
+            --axis-work: #F5D68A;
+            --axis-fun: #F4A6A0;
+
+            --grad-main: linear-gradient(135deg, #B8A4E0 0%, #F4B5C8 100%);
+
+            --overlay: rgba(248, 247, 250, 0.85);
+        }
+
+        /* ============================================
+           تم شب
+           ============================================ */
+        [data-theme="dark"] {
+            --bg: #1C1928;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #262238;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --border: #35304A;
+            --text: #EFECF5;
+            --text-dim: #A8A2B8;
+            --text-muted: #706A82;
+
+            --brand: #C8B4F0;
+            --brand-dark: #A89AD0;
+            --brand-soft: #3A3050;
+
+            --success: #A8E0CC;
+            --success-dark: #88C0AA;
+            --success-soft: #2A3D35;
+
+            --celebrate: #F5DBA0;
+            --pink: #F5C5D5;
+            --alert: #F5B5B0;
+            --alert-soft: #3D2525;
+
+            --axis-study: #C8B4F0;
+            --axis-sport: #A8E0CC;
+            --axis-family: #F5C5D5;
+            --axis-mind: #B8E0F0;
+            --axis-work: #F5DBA0;
+            --axis-fun: #F5B5B0;
+
+            --grad-main: linear-gradient(135deg, #C8B4F0 0%, #F5C5D5 100%);
+
+            --overlay: rgba(28, 25, 40, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            background: 
+                radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+                radial-gradient(circle at 85% 90%, var(--bg-gradient-2), transparent 40%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 120px;
+        }
+
+        /* ============================================
+           انیمیشن‌ها
+           ============================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes growBar {
+            from { width: 0; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.15s; }
+        .fade-in:nth-child(4) { animation-delay: 0.2s; }
+        .fade-in:nth-child(5) { animation-delay: 0.25s; }
+
+        /* ============================================
+           نوار بالا
+           ============================================ */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .topbar-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 2px 8px var(--card-shadow);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* ============================================
+           انتخاب بازه
+           ============================================ */
+        .range-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 0 20px 20px;
+        }
+
+        .range-tab {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .range-tab:active {
+            transform: scale(0.97);
+        }
+
+        .range-tab.active {
+            background: var(--grad-main);
+            color: #FFFFFF;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(184, 164, 224, 0.3);
+        }
+
+        /* ============================================
+           بخش
+           ============================================ */
+        .section {
+            margin: 0 20px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        /* ============================================
+           کارت‌های خلاصه
+           ============================================ */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .summary-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 900;
+            background: var(--grad-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .summary-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-dim);
+        }
+
+        .summary-emoji {
+            font-size: 20px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* ============================================
+           نمودار میله‌ای (محورها)
+           ============================================ */
+        .axis-chart {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 8px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .axis-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .axis-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .axis-row:first-child {
+            padding-top: 0;
+        }
+
+        .axis-name {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text);
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .axis-name-emoji {
+            font-size: 14px;
+        }
+
+        .axis-bar-wrapper {
+            flex: 1;
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .axis-bar {
+            height: 100%;
+            border-radius: 6px;
+            animation: growBar 1s ease;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .axis-bar.study { background: var(--axis-study); }
+        .axis-bar.sport { background: var(--axis-sport); }
+        .axis-bar.family { background: var(--axis-family); }
+        .axis-bar.mind { background: var(--axis-mind); }
+        .axis-bar.work { background: var(--axis-work); }
+        .axis-bar.fun { background: var(--axis-fun); }
+
+        .axis-percent {
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--text-dim);
+            min-width: 40px;
+            text-align: left;
+        }
+
+        /* ============================================
+           نمودار روزانه
+           ============================================ */
+        .days-chart {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 8px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .day-bar-wrapper {
+            width: 100%;
+            height: 80px;
+            background: var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .day-bar {
+            width: 100%;
+            background: var(--grad-main);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 4px;
+        }
+
+        .day-bar.empty {
+            background: var(--border);
+            min-height: 4px;
+        }
+
+        .day-bar.full {
+            background: linear-gradient(180deg, var(--success) 0%, var(--success-dark) 100%);
+        }
+
+        .day-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-dim);
+        }
+
+        .day-label.today {
+            color: var(--brand-dark);
+        }
+
+        /* ============================================
+           پیشنهادها
+           ============================================ */
+        .insights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .insight-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 2px 8px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .insight-item.good {
+            background: var(--success-soft);
+            border-color: var(--success);
+        }
+
+        .insight-item.warning {
+            background: var(--alert-soft);
+            border-color: var(--alert);
+        }
+
+        .insight-item.goal {
+            background: var(--brand-soft);
+            border-color: var(--brand);
+        }
+
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .insight-text {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           خالی
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--card);
+            border: 1px dashed var(--border);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .empty-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           نوار پایین
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(184, 164, 224, 0.08);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            flex: 1;
+            position: relative;
+            padding: 4px 0;
+            transition: color 0.3s;
+            font-weight: 800;
+        }
+
+        .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active .nav-icon {
+            transform: scale(0.9);
+        }
+
+        .nav-item.active {
+            color: var(--brand-dark);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            width: 24px;
+            height: 3px;
+            background: var(--grad-main);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        /* ============================================
+           Toast
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card);
+            border: 1.5px solid var(--brand);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 
+                0 8px 24px rgba(184, 164, 224, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- نوار بالا -->
+        <div class="topbar fade-in">
+            <div class="topbar-title">آنالیز</div>
+            <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+        </div>
+
+        <!-- انتخاب بازه -->
+        <div class="range-tabs fade-in">
+            <button class="range-tab active" onclick="setRange('week', this)">هفته</button>
+            <button class="range-tab" onclick="setRange('month', this)">ماه</button>
+            <button class="range-tab" onclick="setRange('all', this)">کل</button>
+        </div>
+
+        <!-- محتوا -->
+        <div id="content"></div>
+
+    </div>
+
+    <!-- نوار پایین -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="goHome()">
+            <span class="nav-icon">🏠</span>
+            <span>امروز</span>
+        </button>
+        <button class="nav-item" onclick="goTasks()">
+            <span class="nav-icon">✅</span>
+            <span>تسک‌ها</span>
+        </button>
+        <button class="nav-item active">
+            <span class="nav-icon">📊</span>
+            <span>آنالیز</span>
+        </button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== محورها =====
+        const AXES = {
+            study:  { label: 'درس',      emoji: '📚', class: 'study' },
+            sport:  { label: 'ورزش',     emoji: '🏃', class: 'sport' },
+            family: { label: 'خانواده',  emoji: '👨‍👩‍👧', class: 'family' },
+            mind:   { label: 'ذهن',      emoji: '🧘', class: 'mind' },
+            work:   { label: 'کار',      emoji: '💼', class: 'work' },
+            fun:    { label: 'سرگرمی',   emoji: '🎨', class: 'fun' }
+        };
+
+        const DAYS = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
+
+        // ===== وضعیت =====
+        let currentRange = 'week';
+
+        // ===== تم =====
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('masira_theme', newTheme);
+            document.getElementById('themeBtn').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                newTheme === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('masira_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                saved === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        // ===== تاریخ =====
+        function getTodayKey() {
+            const now = new Date();
+            return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        }
+
+        function getDateKey(date) {
+            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        }
+
+        function toPersian(num) {
+            const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+
+        // ===== خواندن داده‌ها =====
+        function getAllData() {
+            return JSON.parse(localStorage.getItem('masira_data') || '{}');
+        }
+
+        // ===== فیلتر بر اساس بازه =====
+        function filterByRange(allData, range) {
+            const filtered = {};
+            const today = new Date();
+            
+            Object.keys(allData).forEach(dateKey => {
+                const parts = dateKey.split('-');
+                const date = new Date(parts[0], parts[1] - 1, parts[2]);
+                const diffDays = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+                
+                if (range === 'week' && diffDays <= 7) {
+                    filtered[dateKey] = allData[dateKey];
+                } else if (range === 'month' && diffDays <= 30) {
+                    filtered[dateKey] = allData[dateKey];
+                } else if (range === 'all') {
+                    filtered[dateKey] = allData[dateKey];
+                }
+            });
+            
+            return filtered;
+        }
+
+        // ===== محاسبه آمار =====
+        function calculateStats(data) {
+            let totalTasks = 0;
+            let totalDone = 0;
+            const axisStats = {};
+            const dayStats = {};
+            
+            // مقدار اولیه محورها
+            Object.keys(AXES).forEach(key => {
+                axisStats[key] = { total: 0, done: 0 };
+            });
+            
+            // مقدار اولیه روزها
+            for (let i = 0; i < 7; i++) {
+                dayStats[i] = { total: 0, done: 0 };
+            }
+            
+            Object.keys(data).forEach(dateKey => {
+                const dayData = data[dateKey];
+                const tasks = dayData.tasks || [];
+                const completed = dayData.completed || {};
+                
+                // روز هفته
+                const parts = dateKey.split('-');
+                const date = new Date(parts[0], parts[1] - 1, parts[2]);
+                const dayOfWeek = date.getDay(); // 0=یکشنبه ... 6=شنبه
+                
+                tasks.forEach(task => {
+                    totalTasks++;
+                    const isDone = completed[task.id];
+                    if (isDone) totalDone++;
+                    
+                    // آمار محور
+                    const axis = task.axis || 'study';
+                    if (axisStats[axis]) {
+                        axisStats[axis].total++;
+                        if (isDone) axisStats[axis].done++;
+                    }
+                    
+                    // آمار روز
+                    dayStats[dayOfWeek].total++;
+                    if (isDone) dayStats[dayOfWeek].done++;
+                });
+            });
+            
+            return { totalTasks, totalDone, axisStats, dayStats };
+        }
+
+        // ===== رندر صفحه =====
+        function render() {
+            const content = document.getElementById('content');
+            const allData = getAllData();
+            const filtered = filterByRange(allData, currentRange);
+            const stats = calculateStats(filtered);
+            
+            // اگه هیچ داده‌ای نیست
+            if (stats.totalTasks === 0) {
+                content.innerHTML = `
+                    <div class="section fade-in">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <div class="empty-text">هنوز داده‌ای نداری</div>
+                            <div class="empty-subtext">اول چند تا تسک بساز، بعد بیا اینجا</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const successRate = stats.totalTasks > 0 
+                ? Math.round((stats.totalDone / stats.totalTasks) * 100) 
+                : 0;
+            
+            // ===== آمار محورها =====
+            const axisArray = Object.keys(stats.axisStats)
+                .map(key => ({
+                    key: key,
+                    ...AXES[key],
+                    ...stats.axisStats[key],
+                    percent: stats.axisStats[key].total > 0
+                        ? Math.round((stats.axisStats[key].done / stats.axisStats[key].total) * 100)
+                        : 0
+                }))
+                .filter(a => a.total > 0)
+                .sort((a, b) => b.percent - a.percent);
+            
+            // ===== نمودار روزها =====
+            const maxDayTasks = Math.max(...Object.values(stats.dayStats).map(d => d.total), 1);
+            const todayDay = new Date().getDay();
+            
+            // ===== پیشنهادها =====
+            const insights = generateInsights(axisArray, stats);
+            
+            content.innerHTML = `
+                <!-- خلاصه -->
+                <div class="section fade-in">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="dot"></span>
+                            📊 خلاصه
+                        </div>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <span class="summary-emoji">📝</span>
+                            <div class="summary-value">${toPersian(stats.totalTasks)}</div>
+                            <div class="summary-label">کل تسک‌ها</div>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-emoji">✅</span>
+                            <div class="summary-value">${toPersian(stats.totalDone)}</div>
+                            <div class="summary-label">انجام شده</div>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-emoji">🎯</span>
+                            <div class="summary-value">${toPersian(successRate)}٪</div>
+                            <div class="summary-label">موفقیت</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- نمودار محورها -->
+                <div class="section fade-in">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="dot"></span>
+                            📈 عملکرد بر اساس محور
+                        </div>
+                    </div>
+                    <div class="axis-chart">
+                        ${axisArray.map(a => `
+                            <div class="axis-row">
+                                <div class="axis-name">
+                                    <span class="axis-name-emoji">${a.emoji}</span>
+                                    <span>${a.label}</span>
+                                </div>
+                                <div class="axis-bar-wrapper">
+                                    <div class="axis-bar ${a.class}" style="width: ${a.percent}%;"></div>
+                                </div>
+                                <div class="axis-percent">${toPersian(a.percent)}٪</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- نمودار روزانه -->
+                <div class="section fade-in">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="dot"></span>
+                            📅 عملکرد روزانه
+                        </div>
+                    </div>
+                    <div class="days-chart">
+                        <div class="days-grid">
+                            ${DAYS.map((day, i) => {
+                                const dayData = stats.dayStats[i] || { total: 0, done: 0 };
+                                const percent = dayData.total > 0 
+                                    ? Math.round((dayData.done / dayData.total) * 100) 
+                                    : 0;
+                                const height = dayData.total > 0
+                                    ? Math.max(8, (dayData.total / maxDayTasks) * 100)
+                                    : 8;
+                                const isToday = i === todayDay;
+                                const isFull = dayData.total > 0 && dayData.done === dayData.total;
+                                
+                                return `
+                                    <div class="day-col">
+                                        <div class="day-bar-wrapper">
+                                            <div class="day-bar ${isFull ? 'full' : ''} ${dayData.total === 0 ? 'empty' : ''}" 
+                                                 style="height: ${dayData.total === 0 ? 8 : height}%;"></div>
+                                        </div>
+                                        <div class="day-label ${isToday ? 'today' : ''}">${day}</div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- پیشنهادها -->
+                ${insights.length > 0 ? `
+                <div class="section fade-in">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="dot"></span>
+                            💡 پیشنهادها
+                        </div>
+                    </div>
+                    <div class="insights-list">
+                        ${insights.map(i => `
+                            <div class="insight-item ${i.type}">
+                                <div class="insight-icon">${i.icon}</div>
+                                <div class="insight-text">${i.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        // ===== تولید پیشنهادها =====
+        function generateInsights(axisArray, stats) {
+            const insights = [];
+            
+            if (axisArray.length === 0) return insights;
+            
+            // بهترین محور
+            const best = axisArray[0];
+            if (best.percent >= 70) {
+                insights.push({
+                    type: 'good',
+                    icon: '✅',
+                    text: `محور «${best.label}» عالی بوده! ${toPersian(best.percent)}٪ موفقیت. همینطور ادامه بده.`
+                });
+            }
+            
+            // ضعیف‌ترین محور
+            const worst = axisArray[axisArray.length - 1];
+            if (worst.percent < 50 && worst.total >= 3) {
+                insights.push({
+                    type: 'warning',
+                    icon: '⚠️',
+                    text: `محور «${worst.label}» ضعیف بوده. فقط ${toPersian(worst.percent)}٪. یه کم بیشتر بهش برس.`
+                });
+            }
+            
+            // نرخ موفقیت کلی
+            const successRate = stats.totalTasks > 0 
+                ? Math.round((stats.totalDone / stats.totalTasks) * 100) 
+                : 0;
+            
+            if (successRate >= 80) {
+                insights.push({
+                    type: 'good',
+                    icon: '🏆',
+                    text: `آفرین! ${toPersian(successRate)}٪ موفقیت. تو یه قهرمانی!`
+                });
+            } else if (successRate < 50) {
+                insights.push({
+                    type: 'warning',
+                    icon: '📉',
+                    text: `موفقیتت ${toPersian(successRate)}٪ بوده. شاید تعداد تسک‌هات زیاده؟`
+                });
+            }
+            
+            // پیشنهاد هدف
+            if (worst.percent < 70) {
+                insights.push({
+                    type: 'goal',
+                    icon: '🎯',
+                    text: `هدف این هفته: محور «${worst.label}» رو به ${toPersian(Math.min(worst.percent + 20, 100))}٪ برسون.`
+                });
+            }
+            
+            return insights.slice(0, 4);
+        }
+
+        // ===== انتخاب بازه =====
+        function setRange(range, el) {
+            currentRange = range;
+            document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            render();
+        }
+
+        // ===== ناوبری =====
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+        
+        function goTasks() {
+            window.location.href = 'tasks.html';
+        }
+
+        // ===== Toast =====
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // ===== راه‌اندازی =====
+        window.addEventListener('load', () => {
+            loadTheme();
+            render();
+        });
+    </script>
+</body>
+</html>
