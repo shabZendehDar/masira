@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F8F7FA" id="themeColor">
+    <title>مسیرا — تسک‌ها</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           تم روز
+           ============================================ */
+        :root {
+            --bg: #F8F7FA;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #FFFFFF;
+            --card-shadow: rgba(184, 164, 224, 0.08);
+            --border: #E8E5F0;
+            --text: #3A3A4A;
+            --text-dim: #8A8A9A;
+            --text-muted: #B5B5C0;
+
+            --brand: #B8A4E0;
+            --brand-dark: #8A7BB5;
+            --brand-soft: #EDE5FA;
+
+            --success: #9DD9C5;
+            --success-dark: #7BB89A;
+            --success-soft: #E0F2EA;
+
+            --celebrate: #F5D68A;
+            --pink: #F4B5C8;
+            --alert: #F4A6A0;
+
+            --axis-study: #B8A4E0;
+            --axis-sport: #9DD9C5;
+            --axis-family: #F4B5C8;
+            --axis-mind: #A8D8E8;
+            --axis-work: #F5D68A;
+            --axis-fun: #F4A6A0;
+
+            --grad-main: linear-gradient(135deg, #B8A4E0 0%, #F4B5C8 100%);
+            --grad-success: linear-gradient(135deg, #9DD9C5 0%, #B8E6D5 100%);
+
+            --overlay: rgba(248, 247, 250, 0.85);
+        }
+
+        /* ============================================
+           تم شب
+           ============================================ */
+        [data-theme="dark"] {
+            --bg: #1C1928;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #262238;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --border: #35304A;
+            --text: #EFECF5;
+            --text-dim: #A8A2B8;
+            --text-muted: #706A82;
+
+            --brand: #C8B4F0;
+            --brand-dark: #A89AD0;
+            --brand-soft: #3A3050;
+
+            --success: #A8E0CC;
+            --success-dark: #88C0AA;
+            --success-soft: #2A3D35;
+
+            --celebrate: #F5DBA0;
+            --pink: #F5C5D5;
+            --alert: #F5B5B0;
+
+            --axis-study: #C8B4F0;
+            --axis-sport: #A8E0CC;
+            --axis-family: #F5C5D5;
+            --axis-mind: #B8E0F0;
+            --axis-work: #F5DBA0;
+            --axis-fun: #F5B5B0;
+
+            --grad-main: linear-gradient(135deg, #C8B4F0 0%, #F5C5D5 100%);
+            --grad-success: linear-gradient(135deg, #A8E0CC 0%, #C8EED8 100%);
+
+            --overlay: rgba(28, 25, 40, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            background: 
+                radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+                radial-gradient(circle at 85% 90%, var(--bg-gradient-2), transparent 40%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 120px;
+        }
+
+        /* ============================================
+           انیمیشن‌ها
+           ============================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0) rotate(-180deg); }
+            70% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(100%); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.15s; }
+
+        /* ============================================
+           نوار بالا
+           ============================================ */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .topbar-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 2px 8px var(--card-shadow);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.9);
+            background: var(--border);
+        }
+
+        /* ============================================
+           فیلتر محورها
+           ============================================ */
+        .axis-filter {
+            display: flex;
+            gap: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .axis-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .axis-chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .axis-chip:active {
+            transform: scale(0.95);
+        }
+
+        .axis-chip.active {
+            background: var(--grad-main);
+            color: #FFFFFF;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(184, 164, 224, 0.3);
+        }
+
+        /* ============================================
+           بخش
+           ============================================ */
+        .section {
+            margin: 0 20px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        .section-counter {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dim);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 4px 10px;
+        }
+
+        /* ============================================
+           تسک‌ها
+           ============================================ */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 2px 8px var(--card-shadow);
+        }
+
+        .task-item:active {
+            transform: scale(0.98);
+        }
+
+        .task-item.done {
+            background: var(--success-soft);
+            border-color: var(--success);
+        }
+
+        .task-axis {
+            width: 8px;
+            height: 44px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .task-axis.study { background: var(--axis-study); }
+        .task-axis.sport { background: var(--axis-sport); }
+        .task-axis.family { background: var(--axis-family); }
+        .task-axis.mind { background: var(--axis-mind); }
+        .task-axis.work { background: var(--axis-work); }
+        .task-axis.fun { background: var(--axis-fun); }
+
+        .task-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .task-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .task-item.done .task-label {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .task-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .task-axis-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .task-axis-label.study { background: rgba(184, 164, 224, 0.15); color: var(--axis-study); }
+        .task-axis-label.sport { background: rgba(157, 217, 197, 0.15); color: var(--success-dark); }
+        .task-axis-label.family { background: rgba(244, 181, 200, 0.15); color: var(--pink); }
+        .task-axis-label.mind { background: rgba(168, 216, 232, 0.15); color: #6BA8C0; }
+        .task-axis-label.work { background: rgba(245, 214, 138, 0.2); color: #B89840; }
+        .task-axis-label.fun { background: rgba(244, 166, 160, 0.15); color: var(--alert); }
+
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .task-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            color: transparent;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .task-item.done .task-check {
+            background: var(--grad-success);
+            border-color: var(--success);
+            color: #FFFFFF;
+            animation: checkPop 0.4s ease;
+            box-shadow: 0 2px 8px rgba(157, 217, 197, 0.4);
+        }
+
+        .task-delete {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(244, 166, 160, 0.15);
+            color: var(--alert);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .task-delete:active {
+            transform: scale(0.9);
+            background: rgba(244, 166, 160, 0.3);
+        }
+
+        /* ============================================
+           خالی
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card);
+            border: 1px dashed var(--border);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .empty-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           دکمه + شناور
+           ============================================ */
+        .fab {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: #FFFFFF;
+            font-weight: 300;
+            border: 4px solid var(--bg);
+            cursor: pointer;
+            position: fixed;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(184, 164, 224, 0.5);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), border 0.4s ease;
+            z-index: 50;
+        }
+
+        .fab::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 20%;
+            right: 20%;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .fab:active {
+            transform: translateX(-50%) translateY(4px) scale(0.95);
+        }
+
+        /* ============================================
+           مودال افزودن
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(28, 25, 40, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card);
+            border-radius: 28px 28px 0 0;
+            padding: 24px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.show .modal {
+            transform: translateY(0);
+        }
+
+        .modal-handle {
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border);
+            margin: 0 auto 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 4px rgba(184, 164, 224, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           انتخاب محور
+           ============================================ */
+        .axis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .axis-option {
+            padding: 14px 8px;
+            border-radius: 14px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .axis-option:active {
+            transform: scale(0.95);
+        }
+
+        .axis-option.active {
+            border-color: var(--brand);
+            background: var(--brand-soft);
+            color: var(--brand-dark);
+        }
+
+        .axis-option .axis-emoji {
+            font-size: 22px;
+        }
+
+        /* ============================================
+           انتخاب زمان
+           ============================================ */
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .time-option {
+            padding: 12px 4px;
+            border-radius: 12px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-option:active {
+            transform: scale(0.95);
+        }
+
+        .time-option.active {
+            border-color: var(--brand);
+            background: var(--brand-soft);
+            color: var(--brand-dark);
+        }
+
+        /* ============================================
+           دکمه ذخیره
+           ============================================ */
+        .btn-3d {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 16px;
+            font-family: inherit;
+            font-weight: 900;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #FFFFFF;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            background: var(--grad-main);
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.08),
+                0 6px 20px rgba(184, 164, 224, 0.35);
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+        }
+
+        .btn-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .btn-3d::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
+        }
+
+        .btn-3d:hover::after {
+            left: 100%;
+        }
+
+        .btn-3d:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+                0 3px 10px rgba(184, 164, 224, 0.45);
+        }
+
+        /* ============================================
+           نوار پایین
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(184, 164, 224, 0.08);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            flex: 1;
+            position: relative;
+            padding: 4px 0;
+            transition: color 0.3s;
+            font-weight: 800;
+        }
+
+        .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active .nav-icon {
+            transform: scale(0.9);
+        }
+
+        .nav-item.active {
+            color: var(--brand-dark);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            width: 24px;
+            height: 3px;
+            background: var(--grad-main);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        /* ============================================
+           Toast
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card);
+            border: 1.5px solid var(--brand);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 
+                0 8px 24px rgba(184, 164, 224, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- نوار بالا -->
+        <div class="topbar">
+            <div class="topbar-title">تسک‌ها</div>
+            <div class="topbar-actions">
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+            </div>
+        </div>
+
+        <!-- فیلتر محورها -->
+        <div class="axis-filter fade-in" id="axisFilter"></div>
+
+        <!-- لیست تسک‌ها -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="dot"></span>
+                    <span id="sectionLabel">همه تسک‌ها</span>
+                </div>
+                <div class="section-counter" id="taskCounter">۰ از ۰</div>
+            </div>
+            <div class="tasks-list" id="tasksList"></div>
+        </div>
+
+    </div>
+
+    <!-- دکمه + شناور -->
+    <button class="fab" onclick="openModal()">+</button>
+
+    <!-- نوار پایین -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="goHome()">
+            <span class="nav-icon">🏠</span>
+            <span>امروز</span>
+        </button>
+        <button class="nav-item active">
+            <span class="nav-icon">✅</span>
+            <span>تسک‌ها</span>
+        </button>
+        <button class="nav-item" onclick="goAnalyzer()">
+            <span class="nav-icon">📊</span>
+            <span>آنالیز</span>
+        </button>
+    </div>
+
+    <!-- مودال افزودن -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-handle"></div>
+            <div class="modal-title">✅ تسک جدید</div>
+
+            <div class="field">
+                <label class="field-label">عنوان تسک</label>
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="taskTitle" 
+                    placeholder="مثلاً: ۳۰ دقیقه ریاضی"
+                    maxlength="50"
+                >
+            </div>
+
+            <div class="field">
+                <label class="field-label">محور</label>
+                <div class="axis-grid" id="axisGrid"></div>
+            </div>
+
+            <div class="field">
+                <label class="field-label">زمان (اختیاری)</label>
+                <div class="time-grid" id="timeGrid"></div>
+            </div>
+
+            <button class="btn-3d" onclick="saveTask()">
+                💾 ذخیره تسک
+            </button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== محورها =====
+        const AXES = {
+            study:  { label: 'درس',      emoji: '📚', class: 'study' },
+            sport:  { label: 'ورزش',     emoji: '🏃', class: 'sport' },
+            family: { label: 'خانواده',  emoji: '👨‍👩‍👧', class: 'family' },
+            mind:   { label: 'ذهن',      emoji: '🧘', class: 'mind' },
+            work:   { label: 'کار',      emoji: '💼', class: 'work' },
+            fun:    { label: 'سرگرمی',   emoji: '🎨', class: 'fun' }
+        };
+
+        const TIMES = ['صبح', 'ظهر', 'عصر', 'شب'];
+
+        // ===== وضعیت =====
+        let state = {
+            tasks: [],
+            completed: {}
+        };
+
+        let currentFilter = 'all';
+        let newTask = {
+            title: '',
+            axis: 'study',
+            time: ''
+        };
+
+        // ===== تم =====
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('masira_theme', newTheme);
+            document.getElementById('themeBtn').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                newTheme === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('masira_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                saved === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        // ===== ذخیره‌سازی =====
+        function saveState() {
+            const today = getTodayKey();
+            const allData = JSON.parse(localStorage.getItem('masira_data') || '{}');
+            allData[today] = {
+                tasks: state.tasks,
+                completed: state.completed
+            };
+            localStorage.setItem('masira_data', JSON.stringify(allData));
+        }
+
+        function loadState() {
+            const today = getTodayKey();
+            const allData = JSON.parse(localStorage.getItem('masira_data') || '{}');
+            if (allData[today]) {
+                state.tasks = allData[today].tasks || [];
+                state.completed = allData[today].completed || {};
+            } else {
+                state.tasks = [];
+                state.completed = {};
+            }
+        }
+
+        function getTodayKey() {
+            const now = new Date();
+            return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        }
+
+        function toPersian(num) {
+            const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+
+        // ===== فیلتر محورها =====
+        function renderAxisFilter() {
+            const filter = document.getElementById('axisFilter');
+            filter.innerHTML = '';
+            
+            // همه
+            const allChip = document.createElement('button');
+            allChip.className = 'axis-chip' + (currentFilter === 'all' ? ' active' : '');
+            allChip.textContent = '🌟 همه';
+            allChip.onclick = () => { currentFilter = 'all'; renderAxisFilter(); renderTasks(); };
+            filter.appendChild(allChip);
+            
+            // هر محور
+            Object.keys(AXES).forEach(key => {
+                const axis = AXES[key];
+                const chip = document.createElement('button');
+                chip.className = 'axis-chip' + (currentFilter === key ? ' active' : '');
+                chip.innerHTML = `${axis.emoji} ${axis.label}`;
+                chip.onclick = () => { currentFilter = key; renderAxisFilter(); renderTasks(); };
+                filter.appendChild(chip);
+            });
+        }
+
+        // ===== رندر تسک‌ها =====
+        function renderTasks() {
+            const list = document.getElementById('tasksList');
+            
+            let filtered = state.tasks;
+            if (currentFilter !== 'all') {
+                filtered = state.tasks.filter(t => t.axis === currentFilter);
+            }
+            
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <div class="empty-text">هنوز تسکی نداری</div>
+                        <div class="empty-subtext">روی + بزن و اولین تسکت رو بساز</div>
+                    </div>
+                `;
+                document.getElementById('taskCounter').textContent = '۰ از ۰';
+                return;
+            }
+
+            list.innerHTML = '';
+            filtered.forEach(task => {
+                const isDone = state.completed[task.id];
+                const axis = AXES[task.axis] || AXES.study;
+                
+                const el = document.createElement('div');
+                el.className = 'task-item' + (isDone ? ' done' : '');
+                
+                el.innerHTML = `
+                    <div class="task-axis ${axis.class}"></div>
+                    <div class="task-content" onclick="toggleTask(${task.id})">
+                        <div class="task-label">${task.title}</div>
+                        <div class="task-meta">
+                            <span class="task-axis-label ${axis.class}">
+                                ${axis.emoji} ${axis.label}
+                            </span>
+                            ${task.time ? `<span>⏰ ${task.time}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <div class="task-check" onclick="toggleTask(${task.id})">✓</div>
+                        <button class="task-delete" onclick="deleteTask(${task.id}, event)">🗑</button>
+                    </div>
+                `;
+                
+                list.appendChild(el);
+            });
+
+            updateCounter();
+        }
+
+        // ===== تیک زدن =====
+        function toggleTask(id) {
+            if (state.completed[id]) {
+                delete state.completed[id];
+                showToast('⏪ برگشت');
+            } else {
+                state.completed[id] = true;
+                showToast('✅ انجام شد!');
+            }
+            saveState();
+            renderTasks();
+        }
+
+        // ===== حذف =====
+        function deleteTask(id, event) {
+            event.stopPropagation();
+            if (!confirm('این تسک حذف بشه؟')) return;
+            
+            state.tasks = state.tasks.filter(t => t.id !== id);
+            delete state.completed[id];
+            saveState();
+            renderTasks();
+            showToast('🗑 حذف شد');
+        }
+
+        // ===== شمارنده =====
+        function updateCounter() {
+            let filtered = state.tasks;
+            if (currentFilter !== 'all') {
+                filtered = state.tasks.filter(t => t.axis === currentFilter);
+            }
+            const total = filtered.length;
+            const done = filtered.filter(t => state.completed[t.id]).length;
+            document.getElementById('taskCounter').textContent = 
+                `${toPersian(done)} از ${toPersian(total)}`;
+        }
+
+        // ===== مودال =====
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('show');
+            document.getElementById('taskTitle').value = '';
+            newTask = { title: '', axis: 'study', time: '' };
+            renderAxisGrid();
+            renderTimeGrid();
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('modalOverlay').classList.remove('show');
+        }
+
+        // ===== انتخاب محور =====
+        function renderAxisGrid() {
+            const grid = document.getElementById('axisGrid');
+            grid.innerHTML = '';
+            Object.keys(AXES).forEach(key => {
+                const axis = AXES[key];
+                const btn = document.createElement('button');
+                btn.className = 'axis-option' + (newTask.axis === key ? ' active' : '');
+                btn.innerHTML = `
+                    <span class="axis-emoji">${axis.emoji}</span>
+                    <span>${axis.label}</span>
+                `;
+                btn.onclick = () => {
+                    newTask.axis = key;
+                    renderAxisGrid();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        // ===== انتخاب زمان =====
+        function renderTimeGrid() {
+            const grid = document.getElementById('timeGrid');
+            grid.innerHTML = '';
+            
+            // بدون زمان
+            const noneBtn = document.createElement('button');
+            noneBtn.className = 'time-option' + (newTask.time === '' ? ' active' : '');
+            noneBtn.textContent = 'هیچ';
+            noneBtn.onclick = () => {
+                newTask.time = '';
+                renderTimeGrid();
+            };
+            grid.appendChild(noneBtn);
+            
+            TIMES.forEach(time => {
+                const btn = document.createElement('button');
+                btn.className = 'time-option' + (newTask.time === time ? ' active' : '');
+                btn.textContent = time;
+                btn.onclick = () => {
+                    newTask.time = time;
+                    renderTimeGrid();
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        // ===== ذخیره تسک =====
+        function saveTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            if (!title) {
+                showToast('⚠️ عنوان تسک رو بنویس');
+                document.getElementById('taskTitle').focus();
+                return;
+            }
+
+            state.tasks.push({
+                id: Date.now(),
+                title: title,
+                axis: newTask.axis,
+                time: newTask.time,
+                createdAt: new Date().toISOString()
+            });
+
+            saveState();
+            renderTasks();
+            closeModal();
+            showToast('✨ تسک اضافه شد!');
+        }
+
+        // ===== ناوبری =====
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+        
+        function goAnalyzer() {
+            window.location.href = 'analyzer.html';
+        }
+
+        // ===== Toast =====
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // ===== راه‌اندازی =====
+        window.addEventListener('load', () => {
+            loadTheme();
+            loadState();
+            renderAxisFilter();
+            renderTasks();
+        });
+
+        window.addEventListener('beforeunload', saveState);
+    </script>
+</body>
+</html>
