@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F8F7FA" id="themeColor">
+    <title>مسیرا</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           تم روز
+           ============================================ */
+        :root {
+            --bg: #F8F7FA;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #FFFFFF;
+            --card-shadow: rgba(184, 164, 224, 0.08);
+            --border: #E8E5F0;
+            --text: #3A3A4A;
+            --text-dim: #8A8A9A;
+            --text-muted: #B5B5C0;
+
+            --brand: #B8A4E0;
+            --brand-dark: #8A7BB5;
+            --brand-soft: #EDE5FA;
+
+            --success: #9DD9C5;
+            --success-dark: #7BB89A;
+            --success-soft: #E0F2EA;
+
+            --celebrate: #F5D68A;
+            --pink: #F4B5C8;
+            --alert: #F4A6A0;
+
+            /* رنگ محورها */
+            --axis-study: #B8A4E0;
+            --axis-sport: #9DD9C5;
+            --axis-family: #F4B5C8;
+            --axis-mind: #A8D8E8;
+            --axis-work: #F5D68A;
+            --axis-fun: #F4A6A0;
+
+            --grad-main: linear-gradient(135deg, #B8A4E0 0%, #F4B5C8 100%);
+            --grad-progress: linear-gradient(90deg, #B8A4E0 0%, #F4B5C8 50%, #F5D68A 100%);
+
+            --overlay: rgba(248, 247, 250, 0.85);
+        }
+
+        /* ============================================
+           تم شب
+           ============================================ */
+        [data-theme="dark"] {
+            --bg: #1C1928;
+            --bg-gradient-1: rgba(184, 164, 224, 0.12);
+            --bg-gradient-2: rgba(244, 181, 200, 0.08);
+            --card: #262238;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --border: #35304A;
+            --text: #EFECF5;
+            --text-dim: #A8A2B8;
+            --text-muted: #706A82;
+
+            --brand: #C8B4F0;
+            --brand-dark: #A89AD0;
+            --brand-soft: #3A3050;
+
+            --success: #A8E0CC;
+            --success-dark: #88C0AA;
+            --success-soft: #2A3D35;
+
+            --celebrate: #F5DBA0;
+            --pink: #F5C5D5;
+            --alert: #F5B5B0;
+
+            --axis-study: #C8B4F0;
+            --axis-sport: #A8E0CC;
+            --axis-family: #F5C5D5;
+            --axis-mind: #B8E0F0;
+            --axis-work: #F5DBA0;
+            --axis-fun: #F5B5B0;
+
+            --grad-main: linear-gradient(135deg, #C8B4F0 0%, #F5C5D5 100%);
+            --grad-progress: linear-gradient(90deg, #C8B4F0 0%, #F5C5D5 50%, #F5DBA0 100%);
+
+            --overlay: rgba(28, 25, 40, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            background: 
+                radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+                radial-gradient(circle at 85% 90%, var(--bg-gradient-2), transparent 40%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 120px;
+        }
+
+        /* ============================================
+           انیمیشن‌ها
+           ============================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0) rotate(-180deg); }
+            70% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.15s; }
+        .fade-in:nth-child(4) { animation-delay: 0.2s; }
+
+        /* ============================================
+           نوار بالا
+           ============================================ */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .greeting-block {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .date-text {
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            position: relative;
+            box-shadow: 
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 2px 8px var(--card-shadow);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.9);
+            background: var(--border);
+        }
+
+        .icon-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--pink);
+            border-radius: 50%;
+            border: 2px solid var(--card);
+            animation: pulse 2s infinite;
+        }
+
+        /* ============================================
+           هشدار
+           ============================================ */
+        .alert-box {
+            margin: 0 20px 16px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(244, 166, 160, 0.15), rgba(244, 181, 200, 0.15));
+            border: 1.5px solid var(--alert);
+            border-radius: 16px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .alert-box.show {
+            display: flex;
+        }
+
+        .alert-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .alert-text {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           نوار پیشرفت
+           ============================================ */
+        .progress-section {
+            margin: 0 20px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 16px var(--card-shadow);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-dim);
+        }
+
+        .progress-percent {
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--grad-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: var(--grad-progress);
+            background-size: 200% auto;
+            animation: shine 3s infinite linear;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* ============================================
+           بخش
+           ============================================ */
+        .section {
+            margin: 0 20px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        .section-counter {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dim);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 4px 10px;
+        }
+
+        /* ============================================
+           تسک‌ها
+           ============================================ */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 2px 8px var(--card-shadow);
+        }
+
+        .task-item:active {
+            transform: scale(0.98);
+        }
+
+        .task-item.done {
+            background: var(--success-soft);
+            border-color: var(--success);
+        }
+
+        .task-axis {
+            width: 8px;
+            height: 44px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .task-axis.study { background: var(--axis-study); }
+        .task-axis.sport { background: var(--axis-sport); }
+        .task-axis.family { background: var(--axis-family); }
+        .task-axis.mind { background: var(--axis-mind); }
+        .task-axis.work { background: var(--axis-work); }
+        .task-axis.fun { background: var(--axis-fun); }
+
+        .task-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .task-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .task-item.done .task-label {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .task-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .task-axis-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .task-axis-label.study { background: rgba(184, 164, 224, 0.15); color: var(--axis-study); }
+        .task-axis-label.sport { background: rgba(157, 217, 197, 0.15); color: var(--success-dark); }
+        .task-axis-label.family { background: rgba(244, 181, 200, 0.15); color: var(--pink); }
+        .task-axis-label.mind { background: rgba(168, 216, 232, 0.15); color: #6BA8C0; }
+        .task-axis-label.work { background: rgba(245, 214, 138, 0.2); color: #B89840; }
+        .task-axis-label.fun { background: rgba(244, 166, 160, 0.15); color: var(--alert); }
+
+        .task-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            color: transparent;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .task-item.done .task-check {
+            background: linear-gradient(135deg, #9DD9C5 0%, #B8E6D5 100%);
+            border-color: var(--success);
+            color: #FFFFFF;
+            animation: checkPop 0.4s ease;
+            box-shadow: 0 2px 8px rgba(157, 217, 197, 0.4);
+        }
+
+        /* ============================================
+           خالی
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card);
+            border: 1px dashed var(--border);
+            border-radius: 20px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .empty-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           نوار پایین
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(184, 164, 224, 0.08);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            flex: 1;
+            position: relative;
+            padding: 4px 0;
+            transition: color 0.3s;
+            font-weight: 800;
+        }
+
+        .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:active .nav-icon {
+            transform: scale(0.9);
+        }
+
+        .nav-item.active {
+            color: var(--brand-dark);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            width: 24px;
+            height: 3px;
+            background: var(--grad-main);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(184, 164, 224, 0.5);
+        }
+
+        .nav-plus {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--grad-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #FFFFFF;
+            font-weight: 300;
+            margin-top: -22px;
+            border: 4px solid var(--bg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 3px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(184, 164, 224, 0.5);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1), border 0.4s ease;
+            flex: 0 0 auto;
+        }
+
+        .nav-plus::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 20%;
+            right: 20%;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .nav-plus:active {
+            transform: translateY(4px) scale(0.95);
+        }
+
+        /* ============================================
+           Toast
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--card);
+            border: 1.5px solid var(--brand);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 
+                0 8px 24px rgba(184, 164, 224, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- نوار بالا -->
+        <div class="topbar fade-in">
+            <div class="greeting-block">
+                <div class="greeting" id="greeting">سلام امیر 👋</div>
+                <div class="date-text" id="dateText">امروز</div>
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+                <button class="icon-btn" onclick="showToast('🔔 هشدارها')">
+                    🔔
+                    <span class="dot" id="notifDot" style="display:none;"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- هشدار -->
+        <div class="alert-box" id="alertBox">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-text" id="alertText">
+                <strong>۲ تسک انجام نشده!</strong> بریم تمومشون کنیم؟
+            </div>
+        </div>
+
+        <!-- پیشرفت -->
+        <div class="progress-section fade-in">
+            <div class="progress-header">
+                <div class="progress-label">📊 پیشرفت امروز</div>
+                <div class="progress-percent" id="progressPercent">۰٪</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- تسک‌های امروز -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-title">
+                    <span class="dot"></span>
+                    ⏰ تسک‌های امروز
+                </div>
+                <div class="section-counter" id="taskCounter">۰ از ۰</div>
+            </div>
+            <div class="tasks-list" id="tasksList"></div>
+        </div>
+
+    </div>
+
+    <!-- نوار پایین -->
+    <div class="bottom-nav">
+        <button class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>امروز</span>
+        </button>
+        <button class="nav-item" onclick="goTasks()">
+            <span class="nav-icon">✅</span>
+            <span>تسک‌ها</span>
+        </button>
+        <button class="nav-plus" onclick="goAdd()">+</button>
+        <button class="nav-item" onclick="goAnalyzer()">
+            <span class="nav-icon">📊</span>
+            <span>آنالیز</span>
+        </button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== محورها =====
+        const AXES = {
+            study:  { label: 'درس',      emoji: '📚', class: 'study' },
+            sport:  { label: 'ورزش',     emoji: '🏃', class: 'sport' },
+            family: { label: 'خانواده',  emoji: '👨‍👩‍👧', class: 'family' },
+            mind:   { label: 'ذهن',      emoji: '🧘', class: 'mind' },
+            work:   { label: 'کار',      emoji: '💼', class: 'work' },
+            fun:    { label: 'سرگرمی',   emoji: '🎨', class: 'fun' }
+        };
+
+        // ===== وضعیت =====
+        let state = {
+            tasks: [],
+            completed: {}
+        };
+
+        // ===== تم =====
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('masira_theme', newTheme);
+            document.getElementById('themeBtn').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                newTheme === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('masira_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️' : '🌙';
+            document.getElementById('themeColor').setAttribute('content', 
+                saved === 'dark' ? '#1C1928' : '#F8F7FA');
+        }
+
+        // ===== ذخیره‌سازی =====
+        function saveState() {
+            const today = getTodayKey();
+            const allData = JSON.parse(localStorage.getItem('masira_data') || '{}');
+            allData[today] = {
+                tasks: state.tasks,
+                completed: state.completed
+            };
+            localStorage.setItem('masira_data', JSON.stringify(allData));
+        }
+
+        function loadState() {
+            const today = getTodayKey();
+            const allData = JSON.parse(localStorage.getItem('masira_data') || '{}');
+            if (allData[today]) {
+                state.tasks = allData[today].tasks || [];
+                state.completed = allData[today].completed || {};
+            } else {
+                state.tasks = [];
+                state.completed = {};
+            }
+        }
+
+        function getTodayKey() {
+            const now = new Date();
+            return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        }
+
+        // ===== تاریخ شمسی =====
+        function getPersianDate() {
+            const now = new Date();
+            const days = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
+            const months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 
+                           'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+            
+            // تبدیل ساده (تقریبی)
+            const day = days[now.getDay()];
+            const date = now.getDate();
+            const month = months[now.getMonth()];
+            
+            return `${day}، ${toPersian(date)} ${month}`;
+        }
+
+        // ===== تبدیل عدد =====
+        function toPersian(num) {
+            const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+
+        // ===== رندر تسک‌ها =====
+        function renderTasks() {
+            const list = document.getElementById('tasksList');
+            
+            if (state.tasks.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <div class="empty-text">هنوز تسکی نداری</div>
+                        <div class="empty-subtext">روی + بزن و اولین تسکت رو بساز</div>
+                    </div>
+                `;
+                document.getElementById('taskCounter').textContent = '۰ از ۰';
+                updateProgress();
+                return;
+            }
+
+            list.innerHTML = '';
+            state.tasks.forEach(task => {
+                const isDone = state.completed[task.id];
+                const axis = AXES[task.axis] || AXES.study;
+                
+                const el = document.createElement('div');
+                el.className = 'task-item' + (isDone ? ' done' : '');
+                el.onclick = () => toggleTask(task.id);
+                
+                el.innerHTML = `
+                    <div class="task-axis ${axis.class}"></div>
+                    <div class="task-content">
+                        <div class="task-label">${task.title}</div>
+                        <div class="task-meta">
+                            <span class="task-axis-label ${axis.class}">
+                                ${axis.emoji} ${axis.label}
+                            </span>
+                            ${task.time ? `<span>⏰ ${task.time}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="task-check">✓</div>
+                `;
+                
+                list.appendChild(el);
+            });
+
+            updateProgress();
+            updateCounter();
+            checkAlerts();
+        }
+
+        // ===== تیک زدن =====
+        function toggleTask(id) {
+            if (state.completed[id]) {
+                delete state.completed[id];
+                showToast('⏪ برگشت');
+            } else {
+                state.completed[id] = true;
+                showToast('✅ انجام شد!');
+            }
+            saveState();
+            renderTasks();
+        }
+
+        // ===== به‌روزرسانی پیشرفت =====
+        function updateProgress() {
+            const total = state.tasks.length;
+            const done = Object.keys(state.completed).length;
+            const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+            
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = toPersian(percent) + '٪';
+        }
+
+        // ===== شمارنده =====
+        function updateCounter() {
+            const total = state.tasks.length;
+            const done = Object.keys(state.completed).length;
+            document.getElementById('taskCounter').textContent = 
+                `${toPersian(done)} از ${toPersian(total)}`;
+        }
+
+        // ===== بررسی هشدارها =====
+        function checkAlerts() {
+            const now = new Date();
+            const hour = now.getHours();
+            const total = state.tasks.length;
+            const done = Object.keys(state.completed).length;
+            const remaining = total - done;
+            
+            const alertBox = document.getElementById('alertBox');
+            const alertText = document.getElementById('alertText');
+            const notifDot = document.getElementById('notifDot');
+            
+            // اگه بعد از ساعت ۱۸ و تسک مونده
+            if (hour >= 18 && remaining > 0 && total > 0) {
+                alertText.innerHTML = `<strong>${toPersian(remaining)} تسک انجام نشده!</strong> بریم تمومشون کنیم؟`;
+                alertBox.classList.add('show');
+                notifDot.style.display = 'block';
+            } else {
+                alertBox.classList.remove('show');
+                notifDot.style.display = 'none';
+            }
+        }
+
+        // ===== ناوبری =====
+        function goTasks() {
+            window.location.href = 'tasks.html';
+        }
+        
+        function goAdd() {
+            window.location.href = 'tasks.html?action=add';
+        }
+        
+        function goAnalyzer() {
+            window.location.href = 'analyzer.html';
+        }
+
+        // ===== Toast =====
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // ===== راه‌اندازی =====
+        window.addEventListener('load', () => {
+            loadTheme();
+            loadState();
+            document.getElementById('dateText').textContent = getPersianDate();
+            renderTasks();
+            
+            // بررسی هشدار هر دقیقه
+            setInterval(checkAlerts, 60000);
+        });
+
+        window.addEventListener('beforeunload', saveState);
+    </script>
+</body>
+</html>
